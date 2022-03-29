@@ -14,7 +14,7 @@ typedef struct{
 	int monedero;
 } Usuario;
 
-void cambiarContraseña(Usuario *u, char contra[20]);
+//void cambiarContrasenia(Usuario *u, char contra[20]);
 void anyadirFondos(Usuario *u, int m);
 void imprimirUsuario(Usuario u);
 

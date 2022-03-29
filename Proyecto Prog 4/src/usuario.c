@@ -8,9 +8,9 @@
 #include "usuario.h"
 #include <stdio.h>
 
-void cambiarContraseña(Usuario *u, char contra[20]){
-	u->contra = contra;
-}
+//void cambiarContrasenia(Usuario *u, char contra[20]){
+//	u->contra = contra;
+//}
 void anyadirFondos(Usuario *u, int m){
 	if(m > 0){
 		u->monedero = u->monedero + m;
