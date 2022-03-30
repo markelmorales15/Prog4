@@ -8,20 +8,16 @@
 
 #include "venta.h"
 #include <stdio.h>
-#include "fecha.h"
-#include "usuario.h"
-#include "zapato.h"
 
-void InfoCliente(Usuario user){
-
+void infoCliente(Venta v){
+	printf("Cliente: %s", v.user);
 }
-void InfoArticulo(Zapato z){
-
+void infoZapato(Venta v){
+	printf("Zapato: %s", v.cod_zap);
 }
 
-void verVentaCliente(void verVentaCliente(Usuario user, Fecha f , Zapato z)){
-
-}
-void verVentas(Venta *v){
-
+void verVenta(Venta v){
+	infoCliente(v);
+	infoZapato(v);
+	imprimirFecha(v.f_venta);
 }

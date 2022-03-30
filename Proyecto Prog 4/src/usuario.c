@@ -19,3 +19,9 @@ void anyadirFondos(Usuario *u, int m){
 void imprimirUsuario(Usuario u){
 	printf("%s", u.nombre);
 }
+
+void imprimirZapatosComprados(Usuario u){
+	for(int i = 0; i < u.numZapatos; i++){
+		imprimirZapato(u.zapatos[i]);
+	}
+}

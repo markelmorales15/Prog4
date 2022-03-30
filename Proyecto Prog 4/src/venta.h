@@ -13,16 +13,18 @@
 
 
 typedef struct{
-	char cod_art[20];
+	//char cod_art[20];
 	Fecha f_venta;
-	Usuario user;
-	Zapato cod_zap;
+	char user[20];
+	char cod_zap[5];
 
 }Venta;
-void InfoCliente(Usuario user);
-void InfoArticulo(Zapato z);
-void verVentaCliente(Usuario user, Fecha f , Zapato z);
-void verVentas(Venta *v);
+//void InfoCliente(Usuario user);
+//void InfoArticulo(Zapato z);
+//void verVentaCliente(Usuario user, Fecha f , Zapato z);
+void verVenta(Venta v);
+void infoCliente(Venta v);
+void infoZapato(Venta v);
 
 
 #endif /* VENTA_H_ */

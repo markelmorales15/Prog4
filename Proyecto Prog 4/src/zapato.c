@@ -9,7 +9,7 @@
 #include "zapato.h"
 
 void imprimirZapato(Zapato z){
-	printf("(%s, %s, %.2f, %i, %i)", z.cod_zap, z.nom_zap, z.precio, z.stock, z.talla);
+	printf("(%s, %s, %.2f, %i, %i)\n", z.cod_zap, z.nom_zap, z.precio, z.stock, z.talla);
 }
 
 void aumentarStock(Zapato *z, int stock){
