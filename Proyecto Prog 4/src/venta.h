@@ -15,8 +15,8 @@
 typedef struct{
 	//char cod_art[20];
 	Fecha f_venta;
-	char user[20];
-	char cod_zap[5];
+	Usuario usu;
+	Zapato zap;
 
 }Venta;
 //void InfoCliente(Usuario user);

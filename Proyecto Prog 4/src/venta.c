@@ -10,10 +10,10 @@
 #include <stdio.h>
 
 void infoCliente(Venta v){
-	printf("Cliente: %s", v.user);
+	imprimirCliente(v.usu);
 }
 void infoZapato(Venta v){
-	printf("Zapato: %s", v.cod_zap);
+	imprimirZapato(v.zap);
 }
 
 void verVenta(Venta v){
