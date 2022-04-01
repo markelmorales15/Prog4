@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 void infoCliente(Venta v){
-	imprimirCliente(v.usu);
+	imprimirUsuario(v.usu);
 }
 void infoZapato(Venta v){
 	imprimirZapato(v.zap);

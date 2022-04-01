@@ -7,20 +7,21 @@
 
 #ifndef USUARIO_H_
 #define USUARIO_H_
+#define NZAP 25
 
 #include "zapato.h"
 
 typedef struct{
 	char nombre[20];
 	char contra[20];
-	int monedero;
-	Zapato *zapatos;
+	float monedero;
+	Zapato *zapatos[NZAP];
 	int numZapatos;
 	int max;
 } Usuario;
 
-//void cambiarContrasenia(Usuario *u, char contra[20]);
-void anyadirFondos(Usuario *u, int m);
+void cambiarContrasenia(Usuario *u, char *contra);
+void anyadirFondos(Usuario *u, float m);
 void imprimirUsuario(Usuario u);
 Usuario reservaMemoria(Usuario u, int tam);
 void liberaMemoria(Zapato *zapatos);

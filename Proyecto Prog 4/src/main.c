@@ -10,13 +10,11 @@ void crearInforme(Usuario u, char *fichero){
 	FILE *pf;
 	int i;
 
-	pf = fopen(fichero,"w");
+	pf = fopen(fichero,"a");
 	if (pf != (FILE*)NULL){
 		fprintf(pf,"ZAPATOS COMPRADOS POR %s\n", fichero);
 		fprintf(pf,"----------------\n");
-		for(i=0;i< u.numZapatos;i++){
-			imprimirZapato(u.zapatos[i]);
-		}
+		imprimirZapatosComprados(u);
 	}
 }
 
