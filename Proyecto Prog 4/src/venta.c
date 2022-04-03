@@ -13,7 +13,7 @@ void infoCliente(Venta v){
 	imprimirUsuario(v.usu);
 }
 void infoZapato(Venta v){
-	imprimirZapato(v.zap);
+	imprimirZapatoNombre(v.zap);
 }
 
 void verVenta(Venta v){

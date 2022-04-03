@@ -3,30 +3,30 @@
 #define BBDD_H_
 #include "sqlite3.h"
 
+#include "zapato.h"
+#include "usuario.h"
+#include "fecha.h"
+#include "admin.h"
+#include "venta.h"
+
 void crearTablas(sqlite3 *db);
-void insertarPersona(sqlite3 *db, int id, char *nom);
-void borrarPersona(sqlite3 *db, int id);
-void mostrarPersonas(sqlite3 *db);
-void modificarNombre(sqlite3 *db, int id, char *nom);
-void borrarTodasLasPersonas(sqlite3 *db);
 
-
-void registrarUsuario(sqlite3 *db, char *nombre, char *contra, float monedero);
+void registrarUsuario(sqlite3 *db, char *nombre, char *contra, float monedero, int numZapatos);
+void aumentarZapUsuario(sqlite3 *db, char *nombre, int numZapatos);
 void registrarAdmin(sqlite3 *db, char *nombre, char *contra, int priv);
-void iniciarSesionUsuario(sqlite3 *db,char *nombre);
-void iniciarSesionAdmin(sqlite3 *db, char *nombre);
+//void iniciarSesionUsuario(sqlite3 *db,char *nombre);
+//void iniciarSesionAdmin(sqlite3 *db, char *nombre);
 void verListaZapatos(sqlite3 *db);
 void verVentasUsuario(sqlite3 *db, char *nombre);
 void cambiarContrasenaUsuario(sqlite3 *db, char *nombre, char *con);
 void cambiarContrasenaAdmin(sqlite3 *db, char *nombre, char *con);
-void anadirFondos(sqlite3 *db, char *nombre, float mon);
-void eliminarCliente(sqlite3 *db, char *nombre);
+void modificarMonedero(sqlite3 *db, char *nombre, float mon);
+void eliminarUsuario(sqlite3 *db, char *nombre);
 void verUsuarios(sqlite3 *db);
-void anadirVenta(sqlite3 *db, int dia, int mes, int anyo, char *usu, char *codarti);
-void reducirMonedero(sqlite3 *db, char *usu,int mone);
+void anadirVenta(sqlite3 *db, int dia, char *mes, int anyo, char *usu, char *codarti);
 void verVentasTodas(sqlite3 *db);
 void anyadirZapato(sqlite3 *db, char *cod, char *nom, float precio, int stock, int talla);
-void modificarStock(sqlite3 *db, int stock);
+void modificarStock(sqlite3 *db, int stock, char *codarti);
 
 
 
