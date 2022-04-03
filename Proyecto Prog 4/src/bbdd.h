@@ -11,25 +11,22 @@ void modificarNombre(sqlite3 *db, int id, char *nom);
 void borrarTodasLasPersonas(sqlite3 *db);
 
 
-/*void registrarUsuario(sqlite3 *db, );
-void registrarAdmin(sqlite3 *db,);
-void iniciarSesion(sqlite3 *db,);
-void listaArticulo(sqlite3 *db,);
-void verVentasCliente(sqlite3 *db,);
-void cambiarContrasenaUsuario(sqlite3 *db,);
-void cambiarContrasenaAdmin(sqlite3 *db,);
-void anadirFondos(sqlite3 *db,);
-void eliminarCliente(sqlite3 *db,);
-void verClientes(sqlite3 *db,);
-void InfoCliente(sqlite3 *db,);
-void InfoArticulo(sqlite3 *db,);
-void anadirVenta(sqlite3 *db,);
-void verVentaCliente(sqlite3 *db,);
-void reducirMonedero(sqlite3 *db,);
-void verVentasTodas(sqlite3 *db,);
-void listaArticulos(sqlite3 *db,);
-void añadirArticulo(sqlite3 *db,);
-void modificarStock(sqlite3 *db,);*/
+void registrarUsuario(sqlite3 *db, char *nombre, char *contra, float monedero);
+void registrarAdmin(sqlite3 *db, char *nombre, char *contra, int priv);
+void iniciarSesionUsuario(sqlite3 *db,char *nombre);
+void iniciarSesionAdmin(sqlite3 *db, char *nombre);
+void verListaZapatos(sqlite3 *db);
+void verVentasUsuario(sqlite3 *db, char *nombre);
+void cambiarContrasenaUsuario(sqlite3 *db, char *nombre, char *con);
+void cambiarContrasenaAdmin(sqlite3 *db, char *nombre, char *con);
+void anadirFondos(sqlite3 *db, char *nombre, float mon);
+void eliminarCliente(sqlite3 *db, char *nombre);
+void verUsuarios(sqlite3 *db);
+void anadirVenta(sqlite3 *db, int dia, int mes, int anyo, char *usu, char *codarti);
+void reducirMonedero(sqlite3 *db, char *usu,int mone);
+void verVentasTodas(sqlite3 *db);
+void anyadirZapato(sqlite3 *db, char *cod, char *nom, float precio, int stock, int talla);
+void modificarStock(sqlite3 *db, int stock);
 
 
 

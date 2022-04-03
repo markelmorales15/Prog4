@@ -8,27 +8,27 @@ void crearTablas(sqlite3 *db){
 	sqlite3_stmt *stmt3;
 	sqlite3_stmt *stmt4;
 
-	char sql1[] = "create table usuario(id int, nom varchar2(20))";
-	char sql2[] = "create table admin(id int, nom varchar2(20))";
-	char sql3[] = "create table zapato(id int, nom varchar2(20))";
-	char sql4[] = "create table venta(id int, nom varchar2(20))";
+	char sql1[] = "create table usuario(nombre varchar(20), contra varchar(20), monedero float, numZapatos int)";
+	char sql2[] = "create table admin(nombre varchar(20), contra varchar(20), priv int)";
+	char sql3[] = "create table zapato(cod_zap varchar(20), nom_zap varchar(30), precio float, stock int, talla int)";
+	char sql4[] = "create table venta(dia int, mes int, anyo int, usu varchar(20), codarti varchar(20))";
 
 
 	sqlite3_prepare_v2(db, sql1, -1, &stmt1, NULL) ;
 	sqlite3_step(stmt1);
 	sqlite3_finalize(stmt1);
 
-	sqlite3_prepare_v2(db, sql2, -1, &stmt1, NULL) ;
-	sqlite3_step(stmt1);
-	sqlite3_finalize(stmt1);
+	sqlite3_prepare_v2(db, sql2, -1, &stmt2, NULL) ;
+	sqlite3_step(stmt2);
+	sqlite3_finalize(stmt2);
 
-	sqlite3_prepare_v2(db, sql3, -1, &stmt1, NULL) ;
-	sqlite3_step(stmt1);
-	sqlite3_finalize(stmt1);
+	sqlite3_prepare_v2(db, sql3, -1, &stmt3, NULL) ;
+	sqlite3_step(stmt3);
+	sqlite3_finalize(stmt3);
 
-	sqlite3_prepare_v2(db, sql4, -1, &stmt1, NULL) ;
-	sqlite3_step(stmt1);
-	sqlite3_finalize(stmt1);
+	sqlite3_prepare_v2(db, sql4, -1, &stmt4, NULL) ;
+	sqlite3_step(stmt4);
+	sqlite3_finalize(stmt4);
 
 
 }

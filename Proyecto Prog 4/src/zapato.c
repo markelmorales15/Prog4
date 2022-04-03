@@ -12,6 +12,10 @@ void imprimirZapato(Zapato z){
 	printf("(%s, %s, %.2f, %i, %i)\n", z.cod_zap, z.nom_zap, z.precio, z.stock, z.talla);
 }
 
+void imprimirZapatoNombre(Zapato z){
+	printf("(%s)\n",z.nom_zap);
+}
+
 void aumentarStock(Zapato *z, int stock){
 	if(stock < 0){
 		printf("ERROR!!! Inserte un n�mero positivo");
