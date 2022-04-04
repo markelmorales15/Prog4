@@ -24,6 +24,7 @@ void cambiarContrasenia(Usuario *u, char *contra);
 void anyadirFondos(Usuario *u, float m);
 void imprimirUsuario(Usuario u);
 Usuario reservaMemoria(Usuario u, int tam);
+//Usuario pedirUsuario();
 void liberaMemoria(Zapato *zapatos);
 
 

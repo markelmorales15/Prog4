@@ -36,3 +36,17 @@ void imprimirZapatosComprados(Usuario u){
 		imprimirZapato(*u.zapatos[i]);
 	}
 }
+
+/*Usuario pedirUsuario(){
+	Usuario u;
+
+	printf("Introduce el id: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%d",&p.id);
+	printf("Introduce el nombre: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(p.nom);
+	return p;
+}*

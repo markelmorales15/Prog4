@@ -19,6 +19,20 @@ void crearInforme(Usuario u, char *fichero){
 	}
 }
 
+/*void leerProductos(Producto *productos[], char *fichero){
+    FILE *pf;
+    int i=0;
+    Producto p;
+    pf = fopen(fichero,"r");
+    if (pf!=(FILE*)NULL){
+        while (fscanf(pf,"%d%s%f",&p.referencia,p.nombre,&p.precio)!=EOF){
+            productos[i]=&p;
+            i++;
+        }
+        fclose(pf);
+    }
+}*/
+
 int main(void) {
 	Zapato z = {"1234", "Zapato 1", 12.23, 5, 20};
 	imprimirZapato(z);
