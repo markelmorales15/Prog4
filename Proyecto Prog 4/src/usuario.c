@@ -37,16 +37,21 @@ void imprimirZapatosComprados(Usuario u){
 	}
 }
 
-/*Usuario pedirUsuario(){
+Usuario pedirUsuario(){
 	Usuario u;
 
-	printf("Introduce el id: ");
-	fflush(stdout);
-	fflush(stdin);
-	scanf("%d",&p.id);
 	printf("Introduce el nombre: ");
 	fflush(stdout);
 	fflush(stdin);
-	gets(p.nom);
-	return p;
-}*
+	gets(u.nombre);
+	printf("Introduce la contraseña: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(u.contra);
+	printf("Introduce el monedero: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%f",&u.monedero);
+	u.numZapatos = 0;
+	return u;
+}
