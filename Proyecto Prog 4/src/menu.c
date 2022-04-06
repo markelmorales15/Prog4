@@ -42,8 +42,9 @@ char menuAdmin(){
 	printf("2) Ver clientes\n");
 	printf("3) Reponer Stock\n");
 	printf("4) Registrar admin\n");
-	printf("5) Eliminar cliente\n");
-	printf("6) Cerrar sesión\n");
+	printf("5) Añadir nuevo zapato\n");
+	printf("6) Eliminar cliente\n");
+	printf("7) Cerrar sesión\n");
 	printf("Opción: ");
 	fflush(stdout);
 	fflush(stdin);

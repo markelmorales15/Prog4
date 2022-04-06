@@ -30,3 +30,29 @@ void modificarPrecio(Zapato *z, float precio){
 		z->precio = precio;
 	}
 }
+
+Zapato pedirZapato() {
+	Zapato z;
+	printf("Introduce el código del zapato: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(z.cod_zap);
+	printf("Introduce el nombre del zapato: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(z.nom_zap);
+	printf("Introduce el precio del zapato: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%f",&z.precio);
+	printf("Introduce el stock inicial: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%i",&z.stock);
+	printf("Introduce la talla del producto: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%i",&z.talla);
+	return z;
+}
+

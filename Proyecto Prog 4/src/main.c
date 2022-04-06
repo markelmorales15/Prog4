@@ -23,7 +23,7 @@
 		fputs(z, fichero);
 		fprintf(pf, "\n");
 	} else {
-		/*fprintf("Zapato comprado: %s\n", z);
+		fprintf("Zapato comprado: %s\n", z);
 		fputs(z, fichero);
 		fprintf(pf, "Zapato comprado: ");
 		fputs(z, fichero);
@@ -58,12 +58,13 @@ int main(void) {
 */
 	sqlite3 *db;
 	char opcion;
-	int esAdmin,error, dia, anyo;
-	Usuario u;
-	Admin a;
-	Zapato z;
-	FILE* fi;
-	char nombre[20],contra[20], zapatocomprar[20], fichero[20], mes[20];
+	int esAdmin,error, dia, anyo, masStock;
+	Usuario u, uelim;
+	Admin a, nuevo;
+	Zapato z, nuevozap;
+	/*FILE* fi;
+	char fichero[20];*/
+	char nombre[20],contra[20], zapatocomprar[20], mes[20], zapatoaumentar[20], nomelim[20];
 	char nuevacontra[20];
 	float masfondos;
 	int result = sqlite3_open("bd.db", &db);
@@ -103,13 +104,24 @@ int main(void) {
 				fflush(stdout);fflush(stdin);gets(contra);
 				if(opcion=='u'){
 					obtenerUsuario(db, nombre, &u);
-					printf("%s %s\n",u.nombre,u.contra);
-					if(strcmp(u.contra,contra)==0){
+					if(strcmp(u.nombre,nombre)==0){
+						if(strcmp(u.contra,contra)==0){
+							esAdmin = 0;
+						}else{
+							error = 1;
+							printf("La contraseña no es correcta\n");
+						}
+					}else{
+						error = 1;
+						printf("El usuario no está registrado\n");
+					}
+					//printf("%s %s\n",u.nombre,u.contra);
+					/*if(strcmp(u.contra,contra)==0){
 						esAdmin = 0;
 					}else{
 						error = 1;
 						printf("La contraseña no es correcta\n");
-					}
+					}*/
 				}else{
 					obtenerAdmin(db, nombre, &a);
 					printf("%s %s\n",a.nombre,a.contra);
@@ -131,13 +143,88 @@ int main(void) {
 								case '2':
 									verUsuarios(db);
 									break;
-								case '3': break;
-								case '4': break;
-								case '5': break;
-								case '6': printf("Volviendo al menú principal...\n");fflush(stdout);break;
+								case '3':
+									verListaZapatos(db);
+									printf("Introduzca el código del zapato al que desee aumentar el stock\n");
+									fflush(stdout);
+									fflush(stdin);
+									gets(zapatoaumentar);
+									obtenerZapato(db, zapatoaumentar, &z);
+									if(strcmp(z.cod_zap, zapatoaumentar) == 0){
+										printf("¿Cuánto desea aumentar el stock?\n");
+										fflush(stdout);
+										fflush(stdin);
+										scanf("%i",&masStock);
+										if (masStock >0){
+											z.stock = z.stock + masStock;
+											modificarStock(db, z.stock, z.cod_zap);
+										} else{
+											printf("ERROR!!! Introduzca un número válido");
+										}
+									} else{
+										printf("ERROR!!! Ese código no corresponde con ningún zapato");
+									}
+									break;
+								case '4':  // Registrar admin
+									if(a.priv == 1){
+										nuevo = pedirAdmin();
+										if(nuevo.priv ==1) {
+											registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
+											printf("Admin añadido correctamente\n");
+										} else if(nuevo.priv == 0){
+											registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
+											printf("Admin añadido correctamente\n");
+										} else{
+											printf("ERROR! El privilegio del admin debe ser 0 o 1\n");
+										}
+
+										//registrarUsuario(db, u.nombre, u.contra, u.monedero, u.numZapatos);
+									} else {
+										printf("No dispone del privilegio para realizar esta acción\n");
+									}
+
+									break;
+								case '5':
+									if(a.priv == 1){
+										nuevozap = pedirZapato();
+										if(nuevozap.precio > 0){
+											if(nuevozap.stock >= 0){
+												if(nuevozap.talla > 0){
+													anyadirZapato(db, nuevozap.cod_zap, nuevozap.nom_zap, nuevozap.precio, nuevozap.stock, nuevozap.talla);
+												} else{
+													printf("ERROR!!! Introduzca un valor válido\n");
+												}
+											} else{
+												printf("ERROR!!! Introduzca un valor válido\n");
+											}
+										} else{
+											printf("ERROR!!! Introduzca un valor válido\n");
+										}
+									} else {
+										printf("No dispone del privilegio para realizar esta acción\n");
+									}
+									break; // Añadir Zapato
+								case '6':
+									if(a.priv == 1){
+										verUsuarios(db);
+										printf("Introduzca el nombre del usuario que desee eliminar\n");
+										fflush(stdout);
+										fflush(stdin);
+										gets(nomelim);
+										obtenerUsuario(db, nomelim, &uelim);
+										if(strcmp(uelim.nombre,nomelim)==0){
+											eliminarUsuario(db, nomelim);
+										} else{
+											printf("Ese usuario no está registrado\n");
+										}
+									} else {
+										printf("No dispone del privilegio para realizar esta acción\n");
+									}
+									break; // Eliminar usuario
+								case '7': printf("Volviendo al menú principal...\n");fflush(stdout);break;
 								default:printf("La opción seleccionada no es correcta\n");fflush(stdout);
 							}
-						}while(opcion!='6');
+						}while(opcion!='7');
 					}else{
 						do{
 							opcion = menuCliente();
@@ -209,10 +296,10 @@ int main(void) {
 												printf("Introduce los fondos que quieras añadir: ");
 												fflush(stdout);
 												fflush(stdin);
-												scanf("%f", masfondos);
+												scanf("%f", &masfondos);
 												if(masfondos > 0){
 													u.monedero = u.monedero + masfondos;
-													modificarMonedero(db, u.nombre, masfondos);
+													modificarMonedero(db, u.nombre, u.monedero);
 												} else {
 													printf("ERROR!!! Introduzca un número válido\n");
 												}

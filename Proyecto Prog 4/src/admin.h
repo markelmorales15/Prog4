@@ -15,6 +15,7 @@ typedef struct{
 } Admin;
 
 void imprimirAdmin(Admin a);
+Admin pedirAdmin();
 //void cambiarContra(Admin *a, char contra[20]);
 
 #endif /* ADMIN_H_ */

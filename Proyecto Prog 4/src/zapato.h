@@ -20,5 +20,6 @@ void imprimirZapato(Zapato z);
 void imprimirZapatoNombre(Zapato z);
 void aumentarStock(Zapato *z, int stock);
 void modificarPrecio(Zapato *z, float precio);
+Zapato pedirZapato();
 
 #endif /* ZAPATO_H_ */
