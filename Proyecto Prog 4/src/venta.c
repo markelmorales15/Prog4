@@ -17,7 +17,8 @@ void infoZapato(Venta v){
 }
 
 void verVenta(Venta v){
-	infoCliente(v);
+	printf("Usuario: %s, Zapato: %s, %i de %s de %i\n",v.usu.nombre, v.zap.cod_zap, v.f_venta.dia, v.f_venta.mes, v.f_venta.anyo);
+	/*infoCliente(v);
 	infoZapato(v);
-	imprimirFecha(v.f_venta);
+	imprimirFecha(v.f_venta);*/
 }

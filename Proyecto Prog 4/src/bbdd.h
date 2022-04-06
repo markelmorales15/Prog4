@@ -12,6 +12,7 @@
 void crearTablas(sqlite3 *db);
 void obtenerAdmin(sqlite3 *db, char *nombre, Admin *a);
 void obtenerUsuario(sqlite3 *db, char *nombre, Usuario *u);
+void obtenerZapato(sqlite3 *db, char *cod, Zapato *z);
 void registrarUsuario(sqlite3 *db, char *nombre, char *contra, float monedero, int numZapatos);
 void aumentarZapUsuario(sqlite3 *db, char *nombre, int numZapatos);
 void registrarAdmin(sqlite3 *db, char *nombre, char *contra, int priv);

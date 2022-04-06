@@ -10,7 +10,7 @@
 #include "sqlite3.h"
 #include "bbdd.h"
 
-void crearInforme(Usuario u, char *fichero, char *z){
+/*void crearInforme(char *fichero, char *z){
 	FILE *pf;
 	//int i;
 
@@ -19,11 +19,18 @@ void crearInforme(Usuario u, char *fichero, char *z){
 		fprintf(pf,"ZAPATOS COMPRADOS POR %s\n", fichero);
 		fprintf(pf,"----------------\n");
 		//imprimirZapatosComprados(u);
-		printf("Zapato comprado: %s\n", z);
+		fprintf(pf, "Zapato comprado: ");
+		fputs(z, fichero);
+		fprintf(pf, "\n");
 	} else {
-		printf("Zapato comprado: %s\n", z);
+		/*fprintf("Zapato comprado: %s\n", z);
+		fputs(z, fichero);
+		fprintf(pf, "Zapato comprado: ");
+		fputs(z, fichero);
+		fprintf(pf, "\n");
 	}
-}
+	fclose(fichero);
+}*/
 
 /*void leerProductos(Producto *productos[], char *fichero){
     FILE *pf;
@@ -51,11 +58,14 @@ int main(void) {
 */
 	sqlite3 *db;
 	char opcion;
-	int esAdmin,error;
+	int esAdmin,error, dia, anyo;
 	Usuario u;
 	Admin a;
 	Zapato z;
-	char nombre[20],contra[20], zapatocomprar[20], fichero[20];
+	FILE* fi;
+	char nombre[20],contra[20], zapatocomprar[20], fichero[20], mes[20];
+	char nuevacontra[20];
+	float masfondos;
 	int result = sqlite3_open("bd.db", &db);
 	if(result != SQLITE_OK){
 		printf("No se ha podido abrir la BBDD\n");fflush(stdout);
@@ -63,8 +73,23 @@ int main(void) {
 		printf("BBDD abierta\n");fflush(stdout);
 	}
 	//crearTablas(db);
+	printf("BIENVENIDO A USHOE\n");
+	printf("Antes de nada introduzca la fecha\n");
+	printf("Dia: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%i",&dia);
+	printf("Mes: ");
+	fflush(stdout);
+	fflush(stdin);
+	gets(mes);
+	printf("Anyo: ");
+	fflush(stdout);
+	fflush(stdin);
+	scanf("%i",&anyo);
 	do{
 		error = 0;
+
 		opcion = menuInicial();
 		switch(opcion){
 			case '1':
@@ -100,8 +125,12 @@ int main(void) {
 						do{
 							opcion = menuAdmin();
 							switch(opcion){
-								case '1': break;
-								case '2': break;
+								case '1':
+									verVentasTodas(db);
+									break;
+								case '2':
+									verUsuarios(db);
+									break;
 								case '3': break;
 								case '4': break;
 								case '5': break;
@@ -114,27 +143,81 @@ int main(void) {
 							opcion = menuCliente();
 							switch(opcion){
 								case '1':
-									printf("Estos son los zapatos disponibles en nuestra tienda");
+									printf("Estos son los zapatos disponibles en nuestra tienda\n");
 									fflush(stdout);
+									fflush(stdin);
 									verListaZapatos(db);
 									break;
 								case '2':
+									/*printf("Seleccione el código del zapato que desea comprar\n");
+									fflush(stdout);
+									fflush(stdin);*/
 									verListaZapatos(db);
 									printf("Seleccione el código del zapato que desea comprar");
-									fflush(stdin);gets(zapatocomprar);
-									obtenerZapato(db, zapatocomprar, z);
-									strcpy(fichero,"Platanos");
-									crearInforme(u, fichero, zapatocomprar);
 									fflush(stdout);
+									fflush(stdin);
+									gets(zapatocomprar);
+									obtenerZapato(db, zapatocomprar, &z);
+
+									if(strcmp(z.cod_zap, zapatocomprar) == 0){
+										if(z.stock>0){
+
+											if(u.monedero > z.precio){
+
+
+												/*strcpy(fichero,strcat(u.nombre, ".txt"));
+												fi = fopen(fichero, "a");
+												fputs(z.nom_zap, fi);
+												fputs("\n", fi);
+												fclose(fi);*/
+												anadirVenta(db, dia, mes, anyo, u.nombre, z.cod_zap);
+												z.stock--;
+												modificarStock(db, z.stock, z.cod_zap);
+												u.monedero = u.monedero - z.precio;
+												modificarMonedero(db, u.nombre, u.monedero);
+												u.numZapatos++;
+												aumentarZapUsuario(db, u.nombre, u.numZapatos);
+												printf("Gracias por su compra!!!\n");
+											} else {
+												printf("No dispone del saldo suficiente para realizar esta compra\n");
+											}
+									}
+									} else {
+										printf("Ese código no está en la lista\n");
+										fflush(stdout);
+									}
+
+									/*strcpy(fichero, strcat(u.nombre, ".txt"));
+									crearInforme(fichero,z.nom_zap);*/
+
 									break;
-								case '3': break;
+								case '3':
+									verVentasUsuario(db, u.nombre);
+									break;
 								case '4':
 									do{
 										opcion = menuPerfil();
 										switch(opcion){
-											case '1': break;
-											case '2': break;
-											case '3': printf("Volviendo al menú cliente...\n");fflush(stdout);break;
+											case '1':
+												printf("Introduzca la nueva contrasenya:  ");
+												fflush(stdout);
+												fflush(stdin);
+												gets(nuevacontra);
+												cambiarContrasenaUsuario(db, u.nombre, nuevacontra);
+												break;
+											case '2':
+												printf("Introduce los fondos que quieras añadir: ");
+												fflush(stdout);
+												fflush(stdin);
+												scanf("%f", masfondos);
+												if(masfondos > 0){
+													u.monedero = u.monedero + masfondos;
+													modificarMonedero(db, u.nombre, masfondos);
+												} else {
+													printf("ERROR!!! Introduzca un número válido\n");
+												}
+												break;
+											case '3': printf("Volviendo al menú usuario...\n");fflush(stdout);break;
 											default:printf("La opción seleccionada no es correcta\n");fflush(stdout);
 										}
 									}while(opcion!='3');
