@@ -59,9 +59,9 @@ int main(void) {
 	sqlite3 *db;
 	char opcion;
 	int esAdmin,error, dia, anyo, masStock;
-	Usuario u, uelim;
-	Admin a, nuevo;
-	Zapato z, nuevozap;
+	Usuario u, uelim, inser;
+	Admin a, nuevo, ins;
+	Zapato z, nuevozap, az;
 	/*FILE* fi;
 	char fichero[20];*/
 	char nombre[20],contra[20], zapatocomprar[20], mes[20], zapatoaumentar[20], nomelim[20];
@@ -168,16 +168,22 @@ int main(void) {
 								case '4':  // Registrar admin
 									if(a.priv == 1){
 										nuevo = pedirAdmin();
-										if(nuevo.priv ==1) {
-											registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
-											printf("Admin añadido correctamente\n");
-										} else if(nuevo.priv == 0){
-											registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
-											printf("Admin añadido correctamente\n");
-										} else{
-											printf("ERROR! El privilegio del admin debe ser 0 o 1\n");
-										}
 
+
+										obtenerAdmin(db, nuevo.nombre, &ins);
+										if(strcmp(ins.nombre,nuevo.nombre)==0){
+											printf("Este admin ya estaba registrado en el sistema \n");
+										} else{
+											if(nuevo.priv ==1) {
+												registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
+												printf("Admin añadido correctamente\n");
+											} else if(nuevo.priv == 0){
+												registrarAdmin(db, nuevo.nombre, nuevo.contra, nuevo.priv);
+												printf("Admin añadido correctamente\n");
+											} else{
+												printf("ERROR! El privilegio del admin debe ser 0 o 1\n");
+											}
+										}
 										//registrarUsuario(db, u.nombre, u.contra, u.monedero, u.numZapatos);
 									} else {
 										printf("No dispone del privilegio para realizar esta acción\n");
@@ -187,18 +193,24 @@ int main(void) {
 								case '5':
 									if(a.priv == 1){
 										nuevozap = pedirZapato();
-										if(nuevozap.precio > 0){
-											if(nuevozap.stock >= 0){
-												if(nuevozap.talla > 0){
-													anyadirZapato(db, nuevozap.cod_zap, nuevozap.nom_zap, nuevozap.precio, nuevozap.stock, nuevozap.talla);
+
+										obtenerZapato(db, nuevozap.cod_zap, &az);
+										if(strcmp(nuevozap.cod_zap,az.cod_zap)==0){
+											printf("Este zapato ya estaba registrado en el sistema \n");
+										} else{
+											if(nuevozap.precio > 0){
+												if(nuevozap.stock >= 0){
+													if(nuevozap.talla > 0){
+														anyadirZapato(db, nuevozap.cod_zap, nuevozap.nom_zap, nuevozap.precio, nuevozap.stock, nuevozap.talla);
+													} else{
+														printf("ERROR!!! Introduzca un valor válido\n");
+													}
 												} else{
 													printf("ERROR!!! Introduzca un valor válido\n");
 												}
 											} else{
 												printf("ERROR!!! Introduzca un valor válido\n");
 											}
-										} else{
-											printf("ERROR!!! Introduzca un valor válido\n");
 										}
 									} else {
 										printf("No dispone del privilegio para realizar esta acción\n");
@@ -320,7 +332,14 @@ int main(void) {
 				}
 				break;
 			case '2': u = pedirUsuario();
-					  registrarUsuario(db, u.nombre, u.contra, u.monedero, u.numZapatos);
+
+					//obtenerUsuario(db, nombre, &u);
+					obtenerUsuario(db, u.nombre, &inser);
+					if(strcmp(inser.nombre,u.nombre)==0){
+						printf("Este usuario ya estaba registrado en el sistema \n");
+					} else{
+						registrarUsuario(db, u.nombre, u.contra, u.monedero, u.numZapatos);
+					}
 				break;
 			case '3': printf("Saliendo de la aplicación...");fflush(stdout);break;
 			default: printf("La opción seleccionada no es correcta\n");fflush(stdout);
