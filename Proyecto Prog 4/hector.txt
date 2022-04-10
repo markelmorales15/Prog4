@@ -1,0 +1,5 @@
+ZAPATOS COMPRADOS POR hector.txt
+----------------
+Zapato comprado: 
+zapato
+zapato

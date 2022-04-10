@@ -1,0 +1,4 @@
+ZAPATOS COMPRADOS POR peio.txt
+----------------
+Zapato comprado: zapato
+zapato 3

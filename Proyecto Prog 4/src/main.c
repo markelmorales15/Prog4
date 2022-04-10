@@ -10,7 +10,7 @@
 #include "sqlite3.h"
 #include "bbdd.h"
 
-/*void crearInforme(char *fichero, char *z){
+void crearInforme(char *fichero){
 	FILE *pf;
 	//int i;
 
@@ -19,18 +19,20 @@
 		fprintf(pf,"ZAPATOS COMPRADOS POR %s\n", fichero);
 		fprintf(pf,"----------------\n");
 		//imprimirZapatosComprados(u);
-		fprintf(pf, "Zapato comprado: ");
-		fputs(z, fichero);
-		fprintf(pf, "\n");
-	} else {
+		fprintf(pf, "Zapato comprado: \n");
+		/*fputs(z, fichero);
+		fprintf(pf, "\n");*/
+		fclose(pf);
+	} /*else {
 		fprintf("Zapato comprado: %s\n", z);
 		fputs(z, fichero);
 		fprintf(pf, "Zapato comprado: ");
 		fputs(z, fichero);
 		fprintf(pf, "\n");
-	}
-	fclose(fichero);
-}*/
+		fclose(pf);
+	}*/
+	//fclose(pf);
+}
 
 /*void leerProductos(Producto *productos[], char *fichero){
     FILE *pf;
@@ -62,8 +64,8 @@ int main(void) {
 	Usuario u, uelim, inser;
 	Admin a, nuevo, ins;
 	Zapato z, nuevozap, az;
-	/*FILE* fi;
-	char fichero[20];*/
+	FILE* fi;
+	char fichero[20];
 	char nombre[20],contra[20], zapatocomprar[20], mes[20], zapatoaumentar[20], nomelim[20];
 	char nuevacontra[20];
 	float masfondos;
@@ -264,11 +266,12 @@ int main(void) {
 											if(u.monedero > z.precio){
 
 
-												/*strcpy(fichero,strcat(u.nombre, ".txt"));
+												strcpy(fichero,strcat(u.nombre, ".txt"));
+												//crearInforme(fichero, z.nom_zap);
 												fi = fopen(fichero, "a");
 												fputs(z.nom_zap, fi);
 												fputs("\n", fi);
-												fclose(fi);*/
+												fclose(fi);
 												anadirVenta(db, dia, mes, anyo, u.nombre, z.cod_zap);
 												z.stock--;
 												modificarStock(db, z.stock, z.cod_zap);
@@ -276,6 +279,7 @@ int main(void) {
 												modificarMonedero(db, u.nombre, u.monedero);
 												u.numZapatos++;
 												aumentarZapUsuario(db, u.nombre, u.numZapatos);
+												//crearInforme(char *fichero, char *z)
 												printf("Gracias por su compra!!!\n");
 											} else {
 												printf("No dispone del saldo suficiente para realizar esta compra\n");
@@ -339,6 +343,9 @@ int main(void) {
 						printf("Este usuario ya estaba registrado en el sistema \n");
 					} else{
 						registrarUsuario(db, u.nombre, u.contra, u.monedero, u.numZapatos);
+						strcpy(fichero, u.nombre);
+						strcat(fichero, ".txt");
+						crearInforme(fichero);
 					}
 				break;
 			case '3': printf("Saliendo de la aplicación...");fflush(stdout);break;
