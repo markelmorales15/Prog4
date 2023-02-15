@@ -13,6 +13,7 @@
 void crearInforme(char *fichero){
 	FILE *pf;
 	//int i;
+	//a
 
 	pf = fopen(fichero,"a");
 	if (pf != (FILE*)NULL){
